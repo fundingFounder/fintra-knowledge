@@ -14,54 +14,49 @@ tags: [dashboard, mOC]
 
 | Area | Key Note |
 |------|----------|
-| **Projects** | [[FinTra - Project Overview]] |
-| **Architecture** | [[System Architecture]] |
-| **Decisions** | [[Decision Log]] |
-| **Sessions** | [[Session 2026-05-22 — Admin Email System]] |
-| **People** | [[Dibyendu Mondal]] |
-| **Knowledge** | [[Supabase Edge Functions]] |
+| 🏠 **All Projects** | [[FinTra - Project Overview]] · [[Percy — Project Overview]] |
+| 📁 **FinTra** | [[FinTra — Product (Mobile App)]] · [[FinTra - Admin Dashboard]] · [[FinTra - Landing Page]] · [[FinTra — Docs & Business]] · [[FinTra — Web (Docs Site)]] · [[FinTra — Marketing]] |
+| 🏠 **Percy** | [[Percy — Landlord App]] · [[Percy — Tenant PWA]] · [[Percy — Supabase Backend]] |
+| 🧪 **Experiments** | [[AutoResearch — Autonomous ML Research]] · [[Agency — Google Sheets Automation]] |
+| 🏗 **Architecture** | [[System Architecture]] · [[Percy System Architecture]] · [[AutoResearch Architecture]] |
+| ⚡ **Infrastructure** | [[Supabase — FinTra Project]] · [[Resend — Email API]] · [[Vercel — FinTra Admin]] · [[Vercel — FinTra Landing]] |
+| 📚 **Knowledge** | [[Supabase Edge Functions]] · [[Flutter Web Responsive Patterns]] · [[Vercel Deployment Patterns]] · [[HTML Email Templates]] |
+| ⚖️ **Decisions** | [[Decision Log]] · [[ADR-001]] · [[ADR-002]] · [[ADR-003]] |
+| 🕐 **Sessions** | [[Session 2026-05-22 — Admin Email System]] · [[Session 2026-05-17 — Percy Auth & Add-Ons]] |
+| 👤 **People** | [[Dibyendu Mondal]] · [[Andrej Karpathy]] |
 
 ---
 
-## 🔥 Active Projects
+## 🎯 Active Projects
 
-```dataview
-LIST FROM "01 - Projects"
-WHERE status = "active"
-SORT file.mtime DESC
+| Project | Status | Tech | URL |
+|---------|--------|------|-----|
+| [[FinTra - Admin Dashboard\|Admin Dashboard]] | Live | Flutter Web | fintra-admin-deploy.vercel.app |
+| [[FinTra - Landing Page\|Landing Page]] | Live | React + Tailwind | fintrahq.com |
+| [[Percy — Tenant PWA\|Tenant PWA]] | Live | Next.js + Tailwind | tenantpwa.vercel.app |
+| [[Percy — Landlord App\|Landlord App]] | Beta | Flutter + Dart | APK sideload |
+| [[FinTra — Product (Mobile App)\|FinTra App]] | Beta | Flutter + Supabase | Play Store / App Store |
+| [[AutoResearch — Autonomous ML Research\|AutoResearch]] | Experimental | PyTorch + GPT | N/A |
+
+---
+
+## 📊 All Projects on This Machine
+
 ```
-
-- [[FinTra - Admin Dashboard]] — Flutter web admin panel (deployed, live)
-- [[FinTra - Product Overview]] — Mobile finance app (beta)
-- [[FinTra - Landing Page]] — fintrahq.com (deployed)
-
----
-
-## 📊 Recent Decisions
-
-- [[ADR-001 — Resend for Email Delivery]]
-- [[ADR-002 — Supabase Edge Functions for Backend Logic]]
-- [[ADR-003 — Flutter Web for Admin Dashboard]]
-
----
-
-## 🕐 Recent Sessions
-
-```dataview
-LIST FROM "04 - Sessions"
-SORT file.name DESC
-LIMIT 5
+/Users/dibyendumondal/Unicorns/
+├── FinTra/                    # Personal finance ecosystem
+│   ├── FinTra_product/         # Mobile app (Flutter + PULSE AI)
+│   ├── FinTra_admin/           # Admin dashboard (Flutter Web)
+│   ├── ultimate-landing/       # Landing page (React + Three.js)
+│   ├── fintra-web/             # Docs site (Mint)
+│   ├── FinTra_docs/            # Business docs + investor materials
+│   └── marketing/              # (empty placeholder)
+├── percy/                     # PG room management
+│   ├── product/apps/percy_app/ # Landlord app (Flutter)
+│   ├── product/apps/tenant_pwa/# Tenant PWA (Next.js)
+│   ├── product/supabase/       # Backend (Postgres + Edge Functions)
+│   ├── landingpage/            # (empty scaffold)
+│   └── marketing/              # (empty scaffold)
+├── agency/                    # Instagram content calendar (Google Sheets API)
+└── original autoresearch/     # Karpathy's autonomous ML research (PyTorch)
 ```
-
----
-
-## 🔗 Graph Stats
-
-- **Projects:** 3
-- **Decisions:** 3
-- **Sessions:** 1
-- **Knowledge:** 4
-
----
-
-*This vault is auto-maintained by Hermes Agent. Every chat creates a session note. Every decision gets an ADR. Everything links back.*

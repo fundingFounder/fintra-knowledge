@@ -6,52 +6,150 @@ tags: [architecture, mOC]
 
 # System Architecture
 
-> How everything connects in the FinTra ecosystem.
+> How everything connects across ALL projects on this machine.
 
-## 🔗 Architecture Diagram
+---
+
+## 🔗 FinTra Ecosystem
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                    USERS                             │
-│  ┌──────────┐  ┌──────────┐  ┌──────────────────┐  │
-│  │ Mobile   │  │ Mobile   │  │ Admin (Dibyendu) │  │
-│  │ App      │  │ App      │  │ Dashboard        │  │
-│  └────┬─────┘  └────┬─────┘  └───────┬──────────┘  │
+│               USERS                                 │
+│  ┌──────────┐  ┌──────────┐  ┌──────────────────┐ │
+│  │ App User │  │ App User │  │ Admin (Dibyendu) │ │
+│  │(Mobile)  │  │(Mobile)  │  │Dashboard         │ │
+│  └────┬─────┘  └────┬─────┘  └───────┬──────────┘ │
 └───────┼──────────────┼───────────────┼──────────────┘
         │              │               │
         ▼              ▼               ▼
 ┌─────────────────────────────────────────────────────┐
-│              SUPABASE (aesncvmhlgmdnmhwablm)        │
-│  ┌─────────┐  ┌──────────┐  ┌────────────────────┐ │
-│  │ Auth    │  │ Database │  │ Edge Functions     │ │
-│  │         │  │          │  │  └─ send-email     │ │
-│  └─────────┘  └──────────┘  └────────┬───────────┘ │
-└───────────────────────────────────────┼─────────────┘
-                                        │
-                                        ▼
-                                ┌───────────────┐
-                                │ Resend API    │
-                                │ (email delivery│
-                                │  100/day free) │
-                                └───────────────┘
+│        SUPABASE (aesncvmhlgmdnmhwablm)              │
+│  ┌─────────┐  ┌──────────┐  ┌────────────────────┐│
+│  │Auth      │  │Database  │  │Edge Functions     ││
+│  │(Google,  │  │          │  │ └─ send-email      ││
+│  │ Apple)   │  │          │  │                    ││
+│  └─────────┘  └──────────┘  └───────┬────────────┘│
+└──────────────────────────────────────┼──────────────┘
+                                       │
+                                       ▼
+                               ┌────────────────┐
+                               │ Resend API     │
+                               └────────────────┘
+
+        ┌──────────────────────────────────────────┐
+        │ VERCEL (Hosting)                          │
+        │  └─ fintra-admin-deploy.vercel.app       │
+        │  └─ fintrahq.com (custom domain)         │
+        └──────────────────────────────────────────┘
 ```
+
+---
+
+## 🔗 Percy Ecosystem
+
+```
+┌──────────────────────────────────────────────────────┐
+│                  LANDLORD (Flutter)                  │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌────────┐ │
+│  │Dashboard │ │Room Mgmt │ │ Billing  │ │QR Gen  │ │
+│  └─────┬────┘ └────┬─────┘ └────┬─────┘ └───┬────┘ │
+└────────┼───────────┼───────────┼────────────┘       │
+         │           │           │                     │
+         ▼           ▼           ▼                     │
+┌──────────────────────────────────────────────────────┐
+│        SUPABASE (vxomboffddzpgrfhdwpd)               │
+│  ┌────────┐ ┌──────────────────────┐ ┌──────────┐  │
+│  │Auth    │ │Edge Functions (6)    │ │Realtime  │  │
+│  │(OTP)   │ │create-stay,         │ │(rooms    │  │
+│  │        │ │get-room-name/details│ │ stream)  │  │
+│  │        │ │notify-checkout,    │ │          │  │
+│  │        │ │get-tenant-id-photo │ │          │  │
+│  │        │ │summarise-feedback  │ │          │  │
+│  └────────┘ └──────────────────────┘ └──────────┘  │
+│  ┌──────────────────────────────────────────────────┐│
+│  │Postgres (34+ migrations)                        ││
+│  │rooms, stays, bills, payments, damage_reports,  ││
+│  │rentable_items, consumables, checkout_requests   ││
+│  └──────────────────────────────────────────────────┘│
+└──────────────────────────────────────────────────────┘
+         │           │
+         ▼           ▼
+┌──────────────────────────────────────────────────────┐
+│              TENANT (PWA — Next.js)                  │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐            │
+│  │Check-In  │ │Dashboard │ │Checkout  │            │
+│  │(6 steps) │ │(stay mgr)│ │(5 steps) │            │
+│  └──────────┘ └──────────┘ └──────────┘            │
+│  tenantpwa.vercel.app                                │
+└──────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🔗 AutoResearch
+
+```
+┌──────────────────────────────────────┐
+│           program.md                 │
+│     (Human-edited instructions)      │
+└──────────────┬───────────────────────┘
+               │
+               ▼
+┌──────────────────────────────────────┐
+│           AI AGENT                    │
+│  Modifies train.py → runs 5-min      │
+│  experiment → measures val_bpb        │
+└──────────────┬───────────────────────┘
+               │
+               ▼
+┌──────────────────────────────────────┐
+│     ~50M param GPT                   │
+│  MuonAdamW optimizer                 │
+│  Flash Attention 3, RoPE, ReLU²     │
+└──────────────┬───────────────────────┘
+               │
+               ▼
+┌──────────────────────────────────────┐
+│     results.tsv                       │
+│  Keep improvements, revert regressions│
+└──────────────────────────────────────┘
+```
+
+---
 
 ## 📊 Database Tables
 
-| Table | Purpose | Key Fields |
-|-------|---------|------------|
-| `app_settings` | Admin config | product_name, app_link, from_email, from_name |
-| `email_templates` | Email template storage | subject, body_html, name |
-| `waitlist` | Beta signups | email, score, status |
-| `users` | App users | salary, categories, goals |
-| `expenses` | Expense tracking | amount, category, date |
-| `future_planning` | Monthly projections | month, allocations |
+### FinTra (Supabase `aesncvmhlgmdnmhwablm`)
+
+| Table | Purpose |
+|-------|---------|
+| `app_settings` | Admin config (product_name, app_link, from_email, from_name) |
+| `email_templates` | HTML email template storage |
+| `waitlist` | Beta signup emails + scores |
+
+### Percy (Supabase `vxomboffddzpgrfhdwpd`)
+
+| Table | Purpose |
+|-------|---------|
+| `rooms` | Room info, rent, status, capacity |
+| `stays` | Tenant stays, dates, checkout status |
+| `bills` + `bill_items` | Itemized billing |
+| `payments` | Cash/UPI/bank tracking |
+| `damage_reports` | Damage + complaints |
+| `rentable_items` | Add-ons with daily rate |
+| `checkout_requests` | Checkout handshake |
+| `tenant_consumables` | Water, etc. |
+| `push_tokens` | FCM landlord notifications |
+| `profiles` | User info (landlord/tenant) |
 
 ---
 
 ## 📋 Related
 
 - [[Supabase — FinTra Project]]
+- [[Percy — Supabase Backend]]
 - [[Resend — Email API]]
-- [[FinTra - Admin Dashboard]]
-- [[FinTra - Product Overview]]
+- [[Vercel — FinTra Admin]]
+- [[Vercel — FinTra Landing]]
+- [[AutoResearch Architecture]]
+- [[Percy System Architecture]]
